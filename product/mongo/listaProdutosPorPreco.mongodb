@@ -2,11 +2,11 @@ use('ecomm-product');
 
 db.products.find({
     $and: [
-        {'preço unitário': {$gte: 1000}},
-        {'preço unitário': {$lte: 2000}}
+        {'precoUnitario': {$gte: 1000}},
+        {'precoUnitario': {$lte: 2000}}
     ]
 }, {
     'produto': 1,
-    'preço unitário': 1,
+    'precoUnitario': 1,
     '_id': 1
 })
