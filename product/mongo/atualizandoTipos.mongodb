@@ -1,0 +1,6 @@
+use('ecomm-product')
+
+db.products.find({}).forEach(elm=>{
+    elm.precoUnitario = NumberDecimal((elm.precoUnitario).toString())
+    db.products.replaceOne({slug: elm.slug}, elm)
+})
