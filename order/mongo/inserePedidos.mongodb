@@ -25,6 +25,14 @@ db.orders.insertMany([
                 quantidade: 1, 
                 desconto: NumberDecimal('200.00'),
                 precoUnitario: NumberDecimal('3523.0')
+            }, {
+                produto: {
+                    nome: 'Galaxy S22 Ultra',
+                    id: ObjectId('63c6a23d2fe7b4893a43b042')
+                },
+                quantidade: 2,
+                desconto: NumberDecimal('400.00'),
+                precoUnitario: NumberDecimal('8549.1')
             }
         ]
     }, {

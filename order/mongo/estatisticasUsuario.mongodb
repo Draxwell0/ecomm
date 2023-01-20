@@ -1,0 +1,26 @@
+use('ecomm-order')
+
+db.orders.aggregate([
+    {
+        $match: {
+            'cliente.id': ObjectId('63c8024946600665305cf322')
+        }
+    }, {
+        $unwind: '$itens'
+    }, {
+        $group: {
+            _id: 0,
+            quantidadeDeItens: {
+                $sum: '$itens.quantidade'
+            },
+            montanteTotal: {
+                $sum: {
+                    $multiply: ['$itens.precoUnitario', '$itens.quantidade']
+                }
+            },
+            montanteComDesconto: {
+                $sum: '$itens.desconto'
+            }
+        }
+    }
+])
