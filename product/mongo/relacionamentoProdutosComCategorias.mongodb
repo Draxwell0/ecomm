@@ -1,0 +1,18 @@
+use('ecomm-product');
+
+//necessário Mongo Shell
+
+db.categories.find({
+    'status': 'ativa'
+}).forEach(categoria=>{
+    db.products.updateMany({
+        'categoria': categoria.nome
+    },{
+        $set: {
+            'categoria': {
+                'nome': categoria.nome,
+                'id': categoria._id 
+            }
+        }
+    })
+})

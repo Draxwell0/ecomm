@@ -1,0 +1,8 @@
+use('ecomm-product');
+
+db.products.find({
+    $or: [
+        {'categoria': 'livros'},
+        {'categoria': 'celulares'}
+    ]
+})

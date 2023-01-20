@@ -1,0 +1,9 @@
+use('ecomm-product');
+
+db.products.find({
+    'quantidade em estoque': {$gte: 3}
+},{
+    'produto': 1,
+    'quantidade em estoque': 1,
+    '_id': 1
+})
