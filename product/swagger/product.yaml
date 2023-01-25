@@ -19,6 +19,29 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Category'
+  /api/categories/{_id}:
+    parameters:
+    - name: _id
+      in: path
+      schema:
+        type: string
+      required: true
+    get:
+      tags:
+      - Categorias
+      summary: Lista detalhes de uma categoria
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        404:
+          description: Categoria não encontrada
+          content:
+            application/json:
+              example: "Não encontrado"                 
   /api/admin/categories:
     post:
       tags: 
