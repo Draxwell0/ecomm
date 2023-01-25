@@ -62,6 +62,44 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Category'
+  /api/admin/categories/{_id}:
+    parameters:
+    - name: _id
+      in: path
+      schema:
+        type: string
+      required: true
+    put:
+      tags:
+      - Categorias
+      summary: Atualiza uma categoria (admin)
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Category"
+      responses:
+        200:
+          description: Atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'  
+    delete:
+      tags:
+      - Categorias
+      summary: Remove uma categoria (admin)
+      responses:
+        200: 
+          description: Deletado com sucesso
+    patch:
+      tags:
+      - Categorias
+      summary: Ativa uma categoria (admin)
+      responses:
+        200:
+          description: Ativado com sucesso
 components:
   schemas:
     Category:
