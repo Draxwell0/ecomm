@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: API ecomm-alura
+  title: API ecomm-product
   description: API para acessar as categorias e produtos do e-commerce
   version: 0.0.1
 paths:

@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: API ecomm-alura
+  title: API ecomm-account | ecomm-order
   description: API para acessar os usuários e pedidos do e-commerce
   version: 0.0.1
 paths:
@@ -47,13 +47,7 @@ paths:
             application/json:
               schema:
                 example: "Não encontrado"
-  /api/admin/users/{_id}:
-    parameters:
-    - name: _id
-      in: path
-      schema:
-        type: string
-      required: true
+  /api/admin/users
     post:
       tags: 
       - Usuários  
@@ -70,13 +64,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
-        404:
-          description: Usuário não encontrado
-          content:
-            application/json:
-              schema:
-                example: "Não encontrado"                
+                $ref: "#/components/schemas/User"                
+  /api/admin/users/{_id}:
+    parameters:
+    - name: _id
+      in: path
+      schema:
+        type: string
+      required: true           
     put:
       tags:
       - Usuários
