@@ -112,7 +112,49 @@ paths:
           content:
             application/json:
               schema:
-                example: "Não encontrado"          
+                example: "Não encontrado"
+  /api/orders:
+    post:
+      tags:
+      - Pedidos
+      summary: Faz um novo pedido
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Order"
+      responses:
+        201:
+          description: Usuário criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+  /api/orders{_id}:
+    parameters:
+    - name: _id
+      in: path
+      schema:
+        type: string
+      required: true
+    get:
+      tags:
+      - Pedidos
+      summary: Lista detalhes de um pedido
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+        404:
+          description: Pedido não encontrado
+          content:
+            application/json:
+              schema:
+                example: "Não encontrado"                          
 components:
   schemas:
     User:
@@ -176,3 +218,38 @@ components:
               type: string
             estado:
               type: string
+    Order:
+      type: object
+      properties:
+        idCliente:
+          type: string
+        enderecoEntrega:
+          type: object
+          properties:
+            rua:
+              type: string
+            numero:
+              type: string
+            complemento:
+              type: string
+            cep:
+              type: string
+            cidade:
+              type: string
+            estado: 
+              type: string
+        itens:
+          type: array
+          items:
+            type: object
+            properties:
+              id: 
+                type: string
+              quantidade:
+                type: integer
+              valorDesconto:
+                type: number
+                format: double
+              precoUnitario:
+                type: number
+                format: double              
