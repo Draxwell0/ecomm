@@ -57,7 +57,7 @@ paths:
                   type: string
       responses:
         201:
-          description: Sucesso
+          description: Adicionado com sucesso
           content:
             application/json:
               schema:
@@ -100,6 +100,127 @@ paths:
       responses:
         200:
           description: Ativado com sucesso
+  /api/products:
+    get:
+      summary: Acessa todos produtos
+      tags:
+      - Produtos
+      responses: 
+        200: 
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                  $ref: "#/components/schemas/Products"
+  /api/products/{_id}:
+    parameters:
+    - name: _id
+      in: path
+      schema:
+        type: string
+      required: true
+    get:
+      tags:
+      - Produtos
+      summary: Lista detalhes de um produto
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        404:
+          description: Produto não encontrado
+          content:
+            application/json:
+              example: "Não encontrado"      
+  /api/admin/products:
+    post:
+      summary: Adiciona um novo produto
+      tags:
+      - Produtos
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome: 
+                  type: string
+                descricao:
+                  type: string
+                slug:
+                  type: string
+                precoUnitario:
+                  type: number
+                  format: double
+                quantidadeEmEstoque:
+                  type: integer
+                idCategoria:
+                  type: string
+      responses:
+        201:
+          description: Adicionado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+  /api/admin/products/{_id}:
+    parameters:
+    - name: _id
+      in: path
+      schema:
+        type: string
+      required: true
+    put:
+      tags:
+      - Produtos
+      summary: Atualiza um produto
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome: 
+                  type: string
+                descricao:
+                  type: string
+                slug:
+                  type: string
+                precoUnitario:
+                  type: number
+                  format: double
+                quantidadeEmEstoque:
+                  type: integer
+                idCategoria:
+                  type: string
+      responses:
+        200:
+          description: Atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        404:
+          description: Produto não encontrado
+          content:
+            application/json:
+              example: "Nâo encontrado"
+    delete:
+      tags:
+      - Produtos
+      summary: Deleta um produto
+      responses:
+        200:
+          description: Produto deletado
+        404:
+          description: Produto não encontrado
+          content:
+            application/json:
+              example: "Não encontrado"          
 components:
   schemas:
     Category:
@@ -110,4 +231,36 @@ components:
           nome:
             type: string
           status:
+            type: string
+    Product:
+      type: object
+      properties:
+        _id: 
+          type: string
+        produto: 
+          type: string
+        descricao: 
+          type: string
+        slug: 
+          type: string
+        precoUnitario: 
+          type: number
+          format: double
+        quantidadeEmEstoque: 
+          type: integer
+        categoria:
+          type: object
+          properties:
+            id:
+              type: string
+            nome:
+              type: string
+    Products:
+      type: array
+      items:
+        type: object
+        properties:
+          _id: 
+            type: string
+          produto:
             type: string
