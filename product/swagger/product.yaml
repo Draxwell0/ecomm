@@ -3,7 +3,6 @@ info:
   title: API ecomm-alura
   description: API para acessar as categorias e produtos do e-commerce
   version: 0.0.1
-  
 paths:
   /api/categories:
     get:
@@ -46,8 +45,9 @@ paths:
     post:
       tags: 
       - Categorias
-      summary: Cadastra novas categorias
-      requestBody: 
+      summary: Cadastra novas categorias (admin)
+      requestBody:
+        required: true 
         content:
           application/json:
             schema:
@@ -85,7 +85,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Category'  
+                $ref: '#/components/schemas/Category' 
+        404:
+        description: Usuário não encontrado
+        content:
+          application/json:
+            schema:
+              example: "Não encontrado"               
     delete:
       tags:
       - Categorias
@@ -93,6 +99,12 @@ paths:
       responses:
         200: 
           description: Deletado com sucesso
+        404:
+          description: Usuário não encontrado
+          content:
+            application/json:
+              schema:
+                example: "Não encontrado"          
     patch:
       tags:
       - Categorias
@@ -100,6 +112,12 @@ paths:
       responses:
         200:
           description: Ativado com sucesso
+        404:
+          description: Usuário não encontrado
+          content:
+            application/json:
+              schema:
+                example: "Não encontrado"          
   /api/products:
     get:
       summary: Acessa todos produtos
@@ -137,10 +155,11 @@ paths:
               example: "Não encontrado"      
   /api/admin/products:
     post:
-      summary: Adiciona um novo produto
+      summary: Adiciona um novo produto (admin)
       tags:
       - Produtos
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -176,7 +195,7 @@ paths:
     put:
       tags:
       - Produtos
-      summary: Atualiza um produto
+      summary: Atualiza um produto (admin)
       requestBody:
         required: true
         content:
@@ -212,7 +231,7 @@ paths:
     delete:
       tags:
       - Produtos
-      summary: Deleta um produto
+      summary: Deleta um produto (admin)
       responses:
         200:
           description: Produto deletado
