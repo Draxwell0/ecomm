@@ -1,0 +1,10 @@
+use('ecomm-account')
+
+db.accounts.find({}).forEach(elm=>{
+    elm.cpf = elm.cpf.toString()
+    elm.telefone = elm.telefone.toString()
+    elm.endereco.numero = elm.endereco.numero.toString()
+    elm.endereco.cep = elm.endereco.cep.toString()
+
+    db.accounts.replaceOne({_id: elm._id}, elm)
+})

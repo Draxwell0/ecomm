@@ -1,0 +1,66 @@
+use('ecomm-order')
+
+db.orders.insertMany([
+    {
+        data: new Date(),
+        cliente: {
+            nome: 'Quehu',
+            id: ObjectId('63c8024946600665305cf322')
+        },
+        enderecoEntrega: {
+            rua: 'Rua Apolo',
+            numero: 82,
+            complemento: 'S/N', 
+            bairro: 'Chácaras Rio-Petrópolis',
+            cep: 25231360,
+            cidade: 'Duque de Caxias',
+            estado: 'RJ'
+        },
+        itens: [
+            {
+                produto: {
+                    nome: 'Notebook Samsung',
+                    id: ObjectId('63c6a23d2fe7b4893a43b039')
+                },
+                quantidade: 1, 
+                desconto: NumberDecimal('200.00'),
+                precoUnitario: NumberDecimal('3523.0')
+            }, {
+                produto: {
+                    nome: 'Galaxy S22 Ultra',
+                    id: ObjectId('63c6a23d2fe7b4893a43b042')
+                },
+                quantidade: 2,
+                desconto: NumberDecimal('400.00'),
+                precoUnitario: NumberDecimal('8549.1')
+            }
+        ]
+    }, {
+        data: new Date(),
+        cliente: {
+            nome: 'Doza',
+            id: ObjectId('63c8024946600665305cf323')
+        },
+        enderecoEntrega: {
+            rua: 'Rua Telmo Mendes',
+            numero: 300,
+            complemento: 'S/N',
+            bairro: 'Recanto do Turu',
+            cep: 65068890,
+            cidade: 'São Luís',
+            estado: 'MA'
+        },
+        itens: [
+            {
+                produto: {
+                    nome: 'iPhone 13 Pro',
+                    id: ObjectId('63c6a23d2fe7b4893a43b03d')
+                },
+                quantidade: 2,
+                desconto: NumberDecimal('350.00'),
+                precoUnitario: NumberDecimal('9176.00')
+            }
+        ]
+    }
+])
+

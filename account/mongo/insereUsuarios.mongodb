@@ -1,0 +1,52 @@
+use('ecomm-account');
+
+db.accounts.insertMany([{
+    nome: 'Quehu',
+    email: 'quehu@example.com',
+    senha: '$2a$12$oPNqRyJga00yeyeS6jmU2.jUiFICJpmVcbZvnmKO0Ah6ZssIsF.V6',
+    dataCriacao: new Date(),
+    cpf: 16193907017,
+    telefone: 10101010,
+    endereco: {
+        rua: 'Rua Miguel Couto',
+        numero: 111,
+        complemento: 'S/N',
+        cep: 75533800,
+        cidade: 'Itumbiara',
+        estado: 'GO'
+    },
+    carrinho: []
+    },{
+        nome: 'Doza',
+        email: 'doza@example.com',
+        senha: '$2a$12$Yk9L8xRbkXVDocVfacI3Iu19SpsJDwHYRkzasiIzIaNinKVNFCzA2',
+        dataCriacao: new Date(),
+        cpf: 36262292039,
+        telefone: 20202020,
+        endereco: {
+            rua: 'Rua Cláudio Lúcio Monteiro',
+            numero: 222,
+            complemento: 'S/N',
+            cep: 68925090,
+            cidade: 'Santana',
+            estado: 'AP'
+        },
+        carrinho: []
+    },{
+        nome: 'Hoimiege',
+        email: 'hoimiege@example.com',
+        senha: '$2a$12$WV9re438TlrEWZezr16LQeqPzA0FSugdpQOwIVBPlq6UdJORMdX/q',
+        dataCriacao: new Date(),
+        cpf: 81736806041,
+        telefone: 30303030,
+        endereco: {
+            rua: 'Rua Lídia Carneiro',
+            numero: 333,
+            complemento: 'S/N',
+            cep: 68628509,
+            cidade: 'Paragominas',
+            estado: 'PA'
+        },
+        carrinho: []
+    }
+])

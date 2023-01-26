@@ -4,6 +4,6 @@ db.products.updateMany({
     'categoria.nome': 'livros'
 }, {
     $set: {
-        'quantidade em estoque': 0
+        'quantidadeEmEstoque': 0
     }
 })
