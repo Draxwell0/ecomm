@@ -36,6 +36,49 @@ class CategoriaController{
             }
         })
     }
+
+    static alterarCategoria = (req, res)=>{
+        const id = req.params.id
+        const regex = /^[A-z][A-z0-9]{2,}$/
+
+        if(regex.test(req.body.nome)){
+            categorias.findByIdAndUpdate(id, {$set: req.body}, (err)=>{
+                if(err){
+                    res.status(400).send('O formato especificado é inválido')
+                    res.status(404).send({message: `${err} - Categoria não encontrada`})
+                }else{
+                    res.status(200).send('Categoria atualizada com sucesso')
+                }
+            })
+        }else{
+            res.status(400).send('O formato de nome especificado é inválido')
+        }
+
+    }
+
+    static removerCategoria = (req, res)=>{
+        const id = req.params.id
+
+        categorias.findByIdAndDelete(id, (err)=>{
+            if(err){
+                res.status(404).send({message: `${err.message} - categoria não encontrada`})
+            } else{
+                res.status(200).send('Categoria removida com sucesso')
+            }
+        })
+    }
+
+    static ativarCategoria = (req, res)=>{
+        const id = req.params.id
+
+        categorias.findByIdAndUpdate(id, {$set: {"status": "ativa"}}, (err)=>{
+            if(err){
+                res.status(404).send({message: `${err.message} - categoria não encontrada`})
+            }else{
+                res.status(200).send('Categoria ativada com sucesso')
+            }
+        })
+    }
 }
 
 export default CategoriaController
