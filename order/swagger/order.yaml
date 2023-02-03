@@ -19,13 +19,13 @@ paths:
                 items:
                   type: object
                   properties:
-                    _id:
+                    id:
                       type: string
                     nome:
                       type: string
-  /api/users/{_id}:
+  /api/users/{id}:
     parameters:
-    - name: _id
+    - name: id
       in: path
       schema:
         type: string
@@ -47,7 +47,7 @@ paths:
             application/json:
               schema:
                 example: "Não encontrado"
-  /api/admin/users
+  /api/admin/users:
     post:
       tags: 
       - Usuários  
@@ -65,9 +65,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/User"                
-  /api/admin/users/{_id}:
+  /api/admin/users/{id}:
     parameters:
-    - name: _id
+    - name: id
       in: path
       schema:
         type: string
@@ -126,9 +126,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Order"
-  /api/orders{_id}:
+  /api/orders{id}:
     parameters:
-    - name: _id
+    - name: id
       in: path
       schema:
         type: string
@@ -155,7 +155,7 @@ components:
     User:
       type: object
       properties:
-        _id: 
+        id: 
           type: string
         nome:
           type: string
