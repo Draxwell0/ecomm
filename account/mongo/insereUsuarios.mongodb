@@ -14,8 +14,7 @@ db.accounts.insertMany([{
         cep: 75533800,
         cidade: 'Itumbiara',
         estado: 'GO'
-    },
-    carrinho: []
+    }
     },{
         nome: 'Doza',
         email: 'doza@example.com',
@@ -30,8 +29,7 @@ db.accounts.insertMany([{
             cep: 68925090,
             cidade: 'Santana',
             estado: 'AP'
-        },
-        carrinho: []
+        }
     },{
         nome: 'Hoimiege',
         email: 'hoimiege@example.com',
@@ -46,7 +44,6 @@ db.accounts.insertMany([{
             cep: 68628509,
             cidade: 'Paragominas',
             estado: 'PA'
-        },
-        carrinho: []
+        }
     }
 ])
