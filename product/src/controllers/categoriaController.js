@@ -10,7 +10,7 @@ class CategoriaController{
 
     static inserirCategoria = (req, res)=>{
         const categoria = new categorias(req.body)
-        const regex = /^[A-z][A-z0-9]{2,}$/
+        const regex = /^[A-z][A-z0-9]{3,}$/
 
         if(regex.test(categoria.nome)){
             categoria.save(err=>{
@@ -29,7 +29,7 @@ class CategoriaController{
         const id = req.params.id
 
         categorias.findById(id, (err, categoria)=>{
-            if(err){
+            if(err || !categoria){
                 res.status(404).send({message: `${err.message} - categoria não encontrada`})
             }else{
                 res.status(200).send(categoria)
@@ -39,7 +39,7 @@ class CategoriaController{
 
     static alterarCategoria = (req, res)=>{
         const id = req.params.id
-        const regex = /^[A-z][A-z0-9]{2,}$/
+        const regex = /^[A-z][A-z0-9]{3,}$/
 
         if(regex.test(req.body.nome)){
             categorias.findByIdAndUpdate(id, {$set: req.body}, (err)=>{
