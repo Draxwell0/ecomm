@@ -26,7 +26,7 @@ class ProdutosController {
                     && produto.categoria.nome == elm.nome
                 ){
                     produto.save(err=>{
-                        res.status(200).send(produto.toJSON())
+                        res.status(201).send(produto.toJSON())
                     })
                 }else{
                     res.status(400).send({message: 'Dados inválidos, verifique a procedência das informações'})
@@ -43,7 +43,7 @@ class ProdutosController {
 
         produtos.findById(id, (err, produto)=>{
             if(err || !produto){
-                res.status(404).send({message: `${err.message} - o id inserido não existe`})
+                res.status(404).send({message: `${err} - o id inserido não existe`})
             }else{
                 res.status(200).send(produto)
             }
@@ -76,7 +76,7 @@ class ProdutosController {
                                     res.status(400).send({message: `${err.message} - O formato especificado é inválido`})
                                     res.status(404).send({message: `${err} - Produto não encontrado`})
                                 }else{
-                                    res.status(200).send('Produto atualizado com sucesso')
+                                    res.status(204).send('Produto atualizado com sucesso')
                                 }
                             })
                         }else{
@@ -99,7 +99,7 @@ class ProdutosController {
             if(err){
                 res.status(404).send('Produto não encontrado')
             }else{
-                res.status(200).send('Produto removido com sucesso')
+                res.status(204).send('Produto removido com sucesso')
             }
         })
     }

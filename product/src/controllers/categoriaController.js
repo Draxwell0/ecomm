@@ -17,7 +17,7 @@ class CategoriaController{
                 if(err){
                     res.status(500).send({message: `${err.message} - falha ao inserir categoria`})
                 } else{
-                    res.status(200).send(categoria.toJSON())
+                    res.status(201).send(categoria.toJSON())
                 }
             })
         } else{
@@ -44,10 +44,10 @@ class CategoriaController{
         if(regex.test(req.body.nome)){
             categorias.findByIdAndUpdate(id, {$set: req.body}, (err)=>{
                 if(err){
-                    res.status(400).send('O formato especificado é inválido')
                     res.status(404).send({message: `${err} - Categoria não encontrada`})
+                    res.status(400).send('O formato especificado é inválido')
                 }else{
-                    res.status(200).send('Categoria atualizada com sucesso')
+                    res.status(204).send('Categoria atualizada com sucesso')
                 }
             })
         }else{
@@ -63,7 +63,7 @@ class CategoriaController{
             if(err){
                 res.status(404).send({message: `${err.message} - categoria não encontrada`})
             } else{
-                res.status(200).send('Categoria removida com sucesso')
+                res.status(204).send('Categoria removida com sucesso')
             }
         })
     }
@@ -75,7 +75,7 @@ class CategoriaController{
             if(err){
                 res.status(404).send({message: `${err.message} - categoria não encontrada`})
             }else{
-                res.status(200).send('Categoria ativada com sucesso')
+                res.status(204).send('Categoria ativada com sucesso')
             }
         })
     }

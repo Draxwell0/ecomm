@@ -18,9 +18,9 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Category'
-  /api/categories/{_id}:
+  /api/categories/{id}:
     parameters:
-    - name: _id
+    - name: id
       in: path
       schema:
         type: string
@@ -62,9 +62,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Category'
-  /api/admin/categories/{_id}:
+  /api/admin/categories/{id}:
     parameters:
-    - name: _id
+    - name: id
       in: path
       schema:
         type: string
@@ -153,9 +153,9 @@ paths:
             appliction/json:
               schema:
                 example: "Parâmetros incorretos"                  
-  /api/products/{_id}:
+  /api/products/{id}:
     parameters:
-    - name: _id
+    - name: id
       in: path
       schema:
         type: string
@@ -208,9 +208,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Product"
-  /api/admin/products/{_id}:
+  /api/admin/products/{id}:
     parameters:
-    - name: _id
+    - name: id
       in: path
       schema:
         type: string
@@ -268,7 +268,7 @@ components:
     Category:
         type: object
         properties:
-          _id:
+          id:
             type: string
           nome:
             type: string
@@ -277,7 +277,7 @@ components:
     Product:
       type: object
       properties:
-        _id: 
+        id: 
           type: string
         produto: 
           type: string
@@ -302,7 +302,7 @@ components:
       items:
         type: object
         properties:
-          _id: 
+          id: 
             type: string
           produto:
             type: string
