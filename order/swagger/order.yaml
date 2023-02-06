@@ -1,0 +1,250 @@
+openapi: 3.0.3
+info:
+  title: API ecomm-account | ecomm-order
+  description: API para acessar os usuários e pedidos do e-commerce
+  version: 0.0.1
+paths:
+  /api/users:
+    get:
+      tags:
+      - Usuários
+      summary: Acessa os usuários existentes
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    nome:
+                      type: string
+  /api/users/{id}:
+    parameters:
+    - name: id
+      in: path
+      schema:
+        type: string
+      required: true
+    get:
+      tags:
+      - Usuários
+      summary: Lista os detalhes de um usuário
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        404:
+          description: Usuário não encontrado
+          content:
+            application/json:
+              schema:
+                example: "Não encontrado"
+  /api/admin/users:
+    post:
+      tags: 
+      - Usuários  
+      summary: Cria um novo usuário (admin)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserSend"
+      responses:
+        201:
+          description: Adicionado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"                
+  /api/admin/users/{id}:
+    parameters:
+    - name: id
+      in: path
+      schema:
+        type: string
+      required: true           
+    put:
+      tags:
+      - Usuários
+      summary: Atualiza um usuário (admin)
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserSend"
+      responses:
+        200:
+          description: Atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        404:
+          description: Usuário não encontrado
+          content:
+            application/json:
+              schema:
+                example: "Não encontrado"                
+    delete:
+      tags:
+      - Usuários
+      summary: Remove um usuário (admin)
+      responses:
+        200: 
+          description: Deletado com sucesso
+        404:
+          description: Usuário não encontrado
+          content:
+            application/json:
+              schema:
+                example: "Não encontrado"
+  /api/orders:
+    post:
+      tags:
+      - Pedidos
+      summary: Faz um novo pedido
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Order"
+      responses:
+        201:
+          description: Usuário criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+  /api/orders{id}:
+    parameters:
+    - name: id
+      in: path
+      schema:
+        type: string
+      required: true
+    get:
+      tags:
+      - Pedidos
+      summary: Lista detalhes de um pedido
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+        404:
+          description: Pedido não encontrado
+          content:
+            application/json:
+              schema:
+                example: "Não encontrado"                          
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id: 
+          type: string
+        nome:
+          type: string
+        email:
+          type: string
+        senha:
+          type: string
+        dataCriacao:
+          type: string
+          format: date-time
+        cpf:
+          type: string
+        telefone:
+          type: string
+        endereco:
+          type: object
+          properties:
+            rua:
+              type: string
+            numero:
+              type: string
+            complemento:
+              type: string
+            cep: 
+              type: string
+            cidade:
+              type: string
+            estado:
+              type: string
+    UserSend:
+      type: object
+      properties:
+        nome:
+          type: string
+        email:
+          type: string
+        senha:
+          type: string
+        cpf:
+          type: string
+        telefone:
+          type: string
+        endereco:
+          type: object
+          properties:
+            rua:
+              type: string
+            numero:
+              type: string
+            complemento:
+              type: string
+            cep: 
+              type: string
+            cidade:
+              type: string
+            estado:
+              type: string
+    Order:
+      type: object
+      properties:
+        idCliente:
+          type: string
+        enderecoEntrega:
+          type: object
+          properties:
+            rua:
+              type: string
+            numero:
+              type: string
+            complemento:
+              type: string
+            cep:
+              type: string
+            cidade:
+              type: string
+            estado: 
+              type: string
+        itens:
+          type: array
+          items:
+            type: object
+            properties:
+              id: 
+                type: string
+              quantidade:
+                type: integer
+              valorDesconto:
+                type: number
+                format: double
+              precoUnitario:
+                type: number
+                format: double              
