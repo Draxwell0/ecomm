@@ -27,7 +27,7 @@ module.exports = {
       status: {
         allowNull: false,
         type: Sequelize.STRING,
-        defaultValue: 'Criado'
+        defaultValue: 'criado'
       },
       createdAt: {
         allowNull: false,
