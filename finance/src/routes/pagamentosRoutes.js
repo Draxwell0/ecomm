@@ -6,5 +6,6 @@ router
     .get('/payments/:id', PagamentoController.listarPagamentoPorId)
     .post('/payments', PagamentoController.inserirPagamento)
     .patch('/payments/:id', PagamentoController.respostaPagamento)
+  
 
 module.exports = router
