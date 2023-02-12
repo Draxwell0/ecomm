@@ -1,6 +1,6 @@
 use('ecomm-product');
 
-db.createCollection('products');
+// db.createCollection('products');
 
 db.products.insertMany([
   {
