@@ -1,3 +1,4 @@
+const db = require('../models')
 const database = require('../models')
 
 class PagamentoController {
@@ -41,16 +42,31 @@ class PagamentoController {
     static async respostaPagamento(req, res){
         const {id} = req.params
         let {status} = req.query
+        let descricao = req.body
 
         status === 'confirm' ? status = 'confirmado' : status = status
         status === 'cancel' ? status = 'cancelado' : status = status
 
-        try{
+        try{ 
+            //verificação se pagamento existe
             const pagamento = await database.payments.findOne({where: {id: Number(id)}})
             if(!pagamento) return res.status(404).json('O id informado não existe')
+
+            //verificação se está como criado
             if(pagamento.status.toLowerCase() === 'criado'){
-                await database.payments.update({status}, {where: {id: Number(id)}})
-                return res.status(200).json(`Pagamento ${status}.`)
+
+                //verificação se foi confirmado ou cancelado
+                if(status.toLowerCase() == 'confirmado'){ 
+                    database.sequelize.transaction(async t =>{
+                        await database.payments.update({status}, {where: {id: Number(id)}}, {transaction: t})
+                        const notaFiscal = await database.Invoices.create({descricao, "idPagamento": id}, {transaction: t})
+
+                        return res.status(200).json(notaFiscal)
+                    })
+                }else{
+                    await database.payments.update({status}, {where: {id: Number(id)}})
+                    res.status(200).json(`Pagamento ${status}.`)
+                }
             }else {
                 return res.status(422).json('Não é possível alterar o status')
             }

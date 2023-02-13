@@ -3,7 +3,7 @@
     "username": "root",
     "password": "secret",
     "database": "ecomm_finances",
-    "host": "mysql-ecomm",
+    "host": "localhost",
     "dialect": "mysql"
   },
   "test": {
