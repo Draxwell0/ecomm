@@ -18,11 +18,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Category'
-        404:
-          description: Categorias não encontradas
-          content:
-            application/json:
-              example: "Não encontrado"    
   /api/categories/{id}:
     parameters:
     - name: id
