@@ -3,17 +3,17 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class payments extends Model {
+  class Payments extends Model {
 
     static associate(models) {
-      payments.hasOne(models.Invoices, {
+      Payments.hasOne(models.Invoices, {
         foreignKey: 'idPagamento'
       })
     }
   }
-  payments.init({
+  Payments.init({
     valor: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DECIMAL(10, 2),
       validate: {
         min: 1
       }
@@ -47,7 +47,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'payments',
+    modelName: 'Payments',
   });
-  return payments;
+  return Payments;
 };

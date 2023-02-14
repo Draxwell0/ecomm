@@ -10,12 +10,13 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       descricao: {
+        allowNull: false,
         type: Sequelize.JSON
       },
       idPagamento: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        references: {model: 'payments', key: 'id'}
+        references: {model: 'Payments', key: 'id'}
       },
       createdAt: {
         allowNull: false,
