@@ -1,15 +1,14 @@
-import express from 'express'
-import usuarios from './usuariosRoutes.js'
-import swaggerUi from 'swagger-ui-express'
-import swaggerDoc from '../../swagger/account.json' assert {type: "json"}
+import express from 'express';
+import usuarios from './usuariosRoutes.js';
+import swaggerUi from 'swagger-ui-express';
+import swaggerDoc from '../../swagger/account.json' assert {type: "json"};
 
-const routes = (app)=>{
+const routes = (app) => {
     app.use(
         express.json(),
-        usuarios
-    )
+        usuarios,
+    );
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+};
 
-    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc))
-}
-
-export default routes
+export default routes;

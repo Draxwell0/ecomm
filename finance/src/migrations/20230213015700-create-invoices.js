@@ -1,4 +1,7 @@
+/* eslint-disable linebreak-style */
+
 'use strict';
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -7,28 +10,29 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       descricao: {
         allowNull: false,
-        type: Sequelize.JSON
+        type: Sequelize.JSON,
       },
       idPagamento: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        references: {model: 'Payments', key: 'id'}
+        references: { model: 'Payments', key: 'id' },
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
+  // eslint-disable-next-line no-unused-vars
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Invoices');
-  }
+  },
 };

@@ -1,19 +1,22 @@
+/* eslint-disable linebreak-style */
+
 'use strict';
+
 const {
-  Model
+  Model,
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Invoices extends Model {
-
     static associate(models) {
       Invoices.belongsTo(models.Payments, {
-        foreignKey: 'idPagamento'
-      })
+        foreignKey: 'idPagamento',
+      });
     }
   }
   Invoices.init({
     descricao: DataTypes.JSON,
-    idPagamento: DataTypes.INTEGER
+    idPagamento: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Invoices',
