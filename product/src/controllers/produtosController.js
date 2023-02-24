@@ -43,10 +43,10 @@ class ProdutosController {
   static alterarProduto = (req, res) => {
     const { id } = req.params;
     const produto = new Produtos(req.body);
-    const regexNome = /^[A-z][A-z0-9]{3,}$/;
+    const regexNome = /^[A-z][\sA-z0-9]{3,}$/;
     const regexSlug = /^[A-z0-9-]+$/;
 
-    produto.findById(id, (err) => {
+    Produtos.findById(id, (err) => {
       if (err) return res.status(404).send({ message: `${err.message} - o id inserido não existe` });
       Categorias.findById(produto.categoria.id, (err, elm) => {
         try {
@@ -59,7 +59,7 @@ class ProdutosController {
             && produto.quantidadeEmEstoque < 10000
             && produto.categoria.nome === elm.nome
           ) {
-            produto.findByIdAndUpdate(id, { $set: req.body }, (err) => {
+            Produtos.findByIdAndUpdate(id, { $set: req.body }, (err) => {
               if (err) {
                 res.status(400).send({ message: `${err.message} - O formato especificado é inválido` });
                 res.status(404).send({ message: `${err} - Produto não encontrado` });

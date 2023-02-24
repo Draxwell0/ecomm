@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const produtoSchema = new mongoose.Schema({
   id: { type: String },
-  produto: { type: String, required: true, match: /^[A-z][A-z0-9]{3,}$/ },
+  produto: { type: String, required: true, match: /^[A-z][\sA-z0-9]{3,}$/ },
   descricao: { type: String, required: true },
   slug: { type: String, required: true, match: /^[A-z0-9-]+$/ },
   precoUnitario: { type: Number, required: true, min: 0.01 },
