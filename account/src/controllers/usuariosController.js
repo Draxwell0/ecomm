@@ -48,7 +48,7 @@ class UsuariosController {
       AC: 'ac', AL: 'al', AM: 'am', AP: 'ap', BA: 'ba', CE: 'ce', DF: 'df', ES: 'es', GO: 'go', MA: 'ma', MG: 'mg', MS: 'ms', MT: 'mt', PA: 'pa', PB: 'pb', PE: 'pe', PI: 'pi', PR: 'pr', RJ: 'rj', RN: 'rn', RO: 'ro', RR: 'rr', RS: 'rs', SC: 'sc', SE: 'se', SP: 'sp', TO: 'to',
     };
 
-    usuario.findById(id, (err) => {
+    Usuarios.findById(id, (err) => {
       if (err) return res.status(404).send({ message: `${err} - o id inserido não existe` });
       if (
         usuario.nome
@@ -62,7 +62,7 @@ class UsuariosController {
         && regexCep.test(usuario.endereco.cep)
         && uf[usuario.endereco.estado.toUpperCase()]
       ) {
-        usuario.findByIdAndUpdate(id, { $set: req.body }, (err) => {
+        Usuarios.findByIdAndUpdate(id, { $set: req.body }, (err) => {
           if (err) return res.status(404).send('Usuário não encontrado');
           return res.status(204).send('Usuário atualizado com sucesso');
         });
