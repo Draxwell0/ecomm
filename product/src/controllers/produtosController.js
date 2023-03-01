@@ -19,7 +19,7 @@ class ProdutosController {
         if (err) throw new Error(err);
         if (produto.categoria.nome === elm.nome) {
           produto.save((err) => {
-            if (err) return res.status(400).send('Houve um erro ao inserir o produto');
+            if (err) return res.status(400).send({ message: ` ${err.message} - Houve um erro ao inserir o produto` });
             return res.status(201).send(produto.toJSON());
           });
         } else {
@@ -64,7 +64,7 @@ class ProdutosController {
                 res.status(400).send({ message: `${err.message} - O formato especificado é inválido` });
                 res.status(404).send({ message: `${err} - Produto não encontrado` });
               } else {
-                return res.status(204).send('Produto atualizado com sucesso');
+                return res.status(200).send({ message: 'Produto atualizado com sucesso' });
               }
             });
           } else {
@@ -81,8 +81,8 @@ class ProdutosController {
     const { id } = req.params;
 
     Produtos.findByIdAndDelete(id, (err) => {
-      if (err) return res.status(404).send('Produto não encontrado');
-      return res.status(204).send('Produto removido com sucesso');
+      if (err) return res.status(404).send({ message: 'Produto não encontrado' });
+      return res.status(200).send({ message: 'Produto removido com sucesso' });
     });
   };
 }

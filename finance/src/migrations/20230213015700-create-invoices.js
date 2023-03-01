@@ -1,4 +1,5 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable strict */
 
 'use strict';
 

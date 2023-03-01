@@ -7,7 +7,8 @@ class PedidoController {
 
     try {
       pedido.save((err) => {
-        if (err) return res.status(500).send('Houve um erro ao inserir o pedido');
+        if (err) return res.status(400).send({ message: 'Dados inválidos, verifique a procedência das informações' });
+
         return res.status(201).send(pedido.toJSON());
       });
     } catch (err) {
@@ -21,8 +22,8 @@ class PedidoController {
 
     try {
       Pedidos.findByIdAndUpdate(idPedido, { $set: { status: 'pago' } }, (err) => {
-        if (err) return res.status(404).send('O pedido inserido não existe');
-        return res.status(200).send('Pedido pago');
+        if (err) return res.status(404).send({ message: 'O pedido inserido não existe' });
+        return res.status(200).send({ message: 'Pedido pago' });
       });
 
       Pedidos.findById(idPedido, async (err, pedido) => {
@@ -54,7 +55,7 @@ class PedidoController {
         }
       });
     } catch (err) {
-      return res.status(404).send(err.message);
+      return res.status(404).send({ message: err.message });
     }
   };
 }

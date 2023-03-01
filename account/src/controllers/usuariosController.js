@@ -64,7 +64,7 @@ class UsuariosController {
       ) {
         Usuarios.findByIdAndUpdate(id, { $set: req.body }, (err) => {
           if (err) return res.status(404).send('Usuário não encontrado');
-          return res.status(204).send('Usuário atualizado com sucesso');
+          return res.status(200).send({ message: 'Usuário atualizado com sucesso' });
         });
       } else {
         return res.status(400).send({ message: 'Dados inválidos, verifique a procedência das informações' });
@@ -76,8 +76,8 @@ class UsuariosController {
     const { id } = req.params;
 
     Usuarios.findByIdAndDelete(id, (err) => {
-      if (err) return res.status(404).send('Usuário não encontrado');
-      return res.status(204).send('Usuário removido com sucesso');
+      if (err) return res.status(404).send({ message: 'Usuário não encontrado' });
+      return res.status(200).send({ message: 'Usuário removido com sucesso' });
     });
   };
 }

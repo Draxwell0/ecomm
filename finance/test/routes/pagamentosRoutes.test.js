@@ -14,14 +14,6 @@ afterEach(() => {
   server.close();
 });
 
-describe('GET em /api/payments/id', () => {
-  it('Deve retornar detalhes de um pagamento', async () => {
-    await request(app)
-      .get('/api/payments/1')
-      .expect(200);
-  });
-});
-
 let idResposta;
 describe('POST em /api/payments', () => {
   it('Deve criar um novo pagamento', async () => {
@@ -34,9 +26,20 @@ describe('POST em /api/payments', () => {
         dataExpiracao: '2025-10',
         cvv: '123',
       })
+      .set('Accept', 'application/json')
+      .expect('content-type', /json/)
       .expect(201);
 
     idResposta = resposta.body.id;
+  });
+});
+
+describe('GET em /api/payments/id', () => {
+  it('Deve retornar detalhes de um pagamento', async () => {
+    await request(app)
+      .get(`/api/payments/${idResposta}`)
+      .expect('content-type', /json/)
+      .expect(200);
   });
 });
 
@@ -44,30 +47,8 @@ describe('PATCH EM /api/payments/id', () => {
   it('Deve confirmar ou cancelar um pagamento', async () => {
     await request(app)
       .patch(`/api/payments/${idResposta}`)
-      .query({ status: 'confirm' }) // teste sendo feito confirmando o pagamento
-      .send({
-        nome: 'novo nome',
-        cpf: '12345678901',
-        endereco: {
-          rua: 'rua teste',
-          numero: '3123',
-          complemento: 'S/N',
-          cep: '12345678',
-          cidade: 'cidadeTEste',
-          estado: 'SP',
-        },
-        itens: [
-          {
-            nome: 'Computador',
-            quantidade: '2',
-            precoEfetivo: '250.99',
-          }, {
-            nome: 'Celular novo',
-            quantidade: '1',
-            precoEfetivo: '100.80',
-          },
-        ],
-      })
+      .query({ status: 'cancel' }) // teste sendo feito cancelando o pagamento
+      .expect('content-type', /json/)
       .expect(200);
   });
 });

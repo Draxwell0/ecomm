@@ -35,13 +35,13 @@ class CategoriaController {
       Categorias.findByIdAndUpdate(id, { $set: req.body }, (err) => {
         if (err) {
           res.status(404).send({ message: `${err} - Categoria não encontrada` });
-          res.status(400).send('O formato especificado é inválido');
+          res.status(400).send({ message: 'O formato especificado é inválido' });
         } else {
-          return res.status(204).send('Categoria atualizada com sucesso');
+          return res.status(200).send({ message: 'Categoria atualizada com sucesso' });
         }
       });
     } else {
-      return res.status(400).send('O formato de nome especificado é inválido');
+      return res.status(400).send({ message: 'O formato de nome especificado é inválido' });
     }
   };
 
@@ -50,7 +50,7 @@ class CategoriaController {
 
     Categorias.findByIdAndDelete(id, (err) => {
       if (err) return res.status(404).send({ message: `${err.message} - categoria não encontrada` });
-      return res.status(204).send('Categoria removida com sucesso');
+      return res.status(200).send({ message: 'Categoria removida com sucesso' });
     });
   };
 
@@ -59,7 +59,7 @@ class CategoriaController {
 
     Categorias.findByIdAndUpdate(id, { $set: { status: 'ativa' } }, (err) => {
       if (err) return res.status(404).send({ message: `${err.message} - categoria não encontrada` });
-      return res.status(204).send('Categoria ativada com sucesso');
+      return res.status(200).send({ message: 'Categoria ativada com sucesso' });
     });
   };
 }

@@ -18,7 +18,6 @@ describe('GET em /api/categories', () => {
   it('Dever retornar uma lista de categorias', async () => {
     await request(app)
       .get('/api/categories')
-      .set('Accept', 'application/json')
       .expect('content-type', /json/)
       .expect(200);
   });
@@ -33,6 +32,7 @@ describe('POST em /api/admin/categories', () => {
         nome: 'categoriaJest',
         status: 'ativa',
       })
+      .expect('content-type', /json/)
       .expect(201);
 
     // eslint-disable-next-line no-underscore-dangle
@@ -40,10 +40,9 @@ describe('POST em /api/admin/categories', () => {
   });
 
   test.each([
-    ['vazio', {}],
-    ['com nome inválido', { nome: 'nome com espaco', status: 'ativa' }],
-    ['com campos faltando', { nome: 'teste' }],
-  ])('Deve recusar a entrada de documento %s', async (chave, param) => {
+    ['com campos vazios', {}],
+    ['com nome inválido', { nome: 'nome com espaco' }],
+  ])('Não deve adicionar quando vier %s', async (chave, param) => {
     const requisicao = { request };
     const spy = jest.spyOn(requisicao, 'request');
     await requisicao.request(app)
@@ -58,7 +57,15 @@ describe('GET em /api/categories/id', () => {
   it('Deve retornar detalhes de uma categoria específica', async () => {
     await request(app)
       .get(`/api/categories/${idResposta}`)
+      .expect('content-type', /json/)
       .expect(200);
+  });
+
+  it('Deve retornar erro com id inexistente', async () => {
+    await request(app)
+      .get('/api/categories/12345678901234567890123')
+      .expect('content-type', /json/)
+      .expect(404);
   });
 });
 
@@ -70,7 +77,28 @@ describe('PUT em /api/admin/categories/id', () => {
         nome: 'Alterado',
         status: 'inativa',
       })
-      .expect(204);
+      .set('Accept', 'application/json')
+      .expect('content-type', /json/)
+      .expect(200);
+  });
+
+  test.each([
+    ['com campos vazios', {}],
+    ['com nome inválido', { nome: 'nome com espaco' }],
+  ])('Não deve alterar quando vier %s', async (chave, param) => {
+    await request(app)
+      .post('/api/admin/categories')
+      .send(param)
+      .set('Accept', 'application/json')
+      .expect('content-type', /json/)
+      .expect(400);
+  });
+
+  it('Deve retornar erro com id inexistente', async () => {
+    await request(app)
+      .put('/api/admin/categories/12345678901234567890123')
+      .expect('content-type', /json/)
+      .expect(404);
   });
 });
 
@@ -78,7 +106,15 @@ describe('PATCH em /api/admin/categories/id', () => {
   it('Deve ativar uma categoria', async () => {
     await request(app)
       .patch(`/api/admin/categories/${idResposta}`)
-      .expect(204);
+      .expect('content-type', /json/)
+      .expect(200);
+  });
+
+  it('Deve retornar erro com id inexistente', async () => {
+    await request(app)
+      .patch('/api/admin/categories/12345678901234567890123')
+      .expect('content-type', /json/)
+      .expect(404);
   });
 });
 
@@ -86,6 +122,14 @@ describe('DELETE em /api/admin/categories/id', () => {
   it('Deve deletar uma categoria', async () => {
     await request(app)
       .delete(`/api/admin/categories/${idResposta}`)
-      .expect(204);
+      .expect('content-type', /json/)
+      .expect(200);
+  });
+
+  it('Deve retornar erro com id inexistente', async () => {
+    await request(app)
+      .delete('/api/admin/categories/12345678901234567890123')
+      .expect('content-type', /json/)
+      .expect(404);
   });
 });
