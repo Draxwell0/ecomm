@@ -23,7 +23,7 @@ const moldeProduto = {
   quantidadeEmEstoque: '5',
   categoria: {
     nome: 'categoriaJest',
-    id: '63fe04092c63b668dde7316c', // valido de acordo com uma categoria e id existente no banco
+    id: '63fe04092c63b668dde7316c',
   },
 };
 
@@ -35,7 +35,7 @@ const moldeProdutoModificado = {
   quantidadeEmEstoque: '4',
   categoria: {
     nome: 'categoriaJest',
-    id: '63fe04092c63b668dde7316c', // valido de acordo com uma categoria e id existente no banco
+    id: '63fe04092c63b668dde7316c',
   },
 };
 
