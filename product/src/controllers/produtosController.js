@@ -5,27 +5,20 @@ class ProdutosController {
 
     static listarProdutos = (req, res)=>{
         produtos.find((err, produto)=>{
+            if(err) res.status(500).send({message: `${err.message} - Houve um erro ao listas os produtos`})
             res.status(200).json(produto)
         })
     }
 
     static inserirProduto = (req, res)=>{
         const produto = new produtos(req.body)
-        const regexNome = /^[A-z][A-z0-9]{3,}$/
-        const regexSlug = /^[A-z0-9-]+$/
         
         categorias.findById(produto.categoria.id, (err, elm)=>{
             try{
                 if(err) throw new Error(err)
-                if(
-                    regexNome.test(produto.produto) //model.produto = nome do produto
-                    && regexSlug.test(produto.slug)
-                    && produto.precoUnitario > 0
-                    && produto.quantidadeEmEstoque > 0
-                    && produto.quantidadeEmEstoque < 10000
-                    && produto.categoria.nome == elm.nome
-                ){
+                if(produto.categoria.nome == elm.nome){
                     produto.save(err=>{
+                        if(err) res.status(400).send('Houve um erro ao inserir o produto')
                         res.status(201).send(produto.toJSON())
                     })
                 }else{

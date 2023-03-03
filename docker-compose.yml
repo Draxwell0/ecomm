@@ -3,6 +3,53 @@ services:
   product: 
     build: ./product
     container_name: ecomm-product
+    ports:
+      - 3001:3001
+    depends_on:
+      - mongodb
   account:
     build: ./account
     container_name: ecomm-account
+    ports:
+      - 3002:3002
+    depends_on:
+      - mongodb
+  finance:
+    build: ./finance
+    container_name: ecomm-finance
+    ports:
+      - 3003:3003
+    depends_on:
+      - mysql
+  order:
+    build: ./order
+    container_name: ecomm-order
+    ports: 
+      - 3004:3004
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo
+    container_name: mongo-ecomm
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=secret
+    volumes:
+      - ecomm-mongo:/data/db
+  mysql:
+    image: mysql
+    container_name: mysql-ecomm
+    ports:
+      - 3306:3306
+    environment: 
+      - MYSQL_ROOT_USERNAME=root
+      - MYSQL_ROOT_PASSWORD=secret
+    volumes:
+     - ecomm-mysql:/var/lib/mysql
+
+volumes: 
+  ecomm-mysql:
+  ecomm-mongo:
