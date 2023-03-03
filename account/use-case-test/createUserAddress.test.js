@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { createUserAddressUseCase } from '../src/use-case/createUserAddress.js';
+import createUserAddressUseCase from '../src/use-case/createUserAddress.js';
 
 console.log(createUserAddressUseCase({
   publicPlace: 'logradouro',

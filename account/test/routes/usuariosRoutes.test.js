@@ -1,8 +1,19 @@
 import {
-  afterEach, beforeEach, describe, it, test,
+  afterAll,
+  beforeAll,
+  describe, it, test,
 } from '@jest/globals';
 import request from 'supertest';
+import mongoose from 'mongoose';
 import app from '../../src/main.js';
+
+beforeAll(async () => {
+  mongoose.connect('mongodb://admin:secret@127.0.0.1:27017/ecomm-account-test?authSource=admin');
+});
+
+afterAll(async () => {
+  mongoose.connection.close();
+});
 
 const moldeUsuario = {
   nome: 'nomeJest',
@@ -44,16 +55,6 @@ const casosDeErro = (objeto) => ([
   ['com telefone inválido', { ...objeto, telefone: '123456789' }],
   ['com cep inválido', { ...objeto, endereco: { ...objeto.endereco, cep: '12345' } }],
 ]);
-
-let server;
-beforeEach(() => {
-  const port = 3002;
-  server = app.listen(port);
-});
-
-afterEach(() => {
-  server.close();
-});
 
 describe('GET em /api/users', () => {
   it('Deve retornar uma lista de usuários', async () => {

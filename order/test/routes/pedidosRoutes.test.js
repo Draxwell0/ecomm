@@ -1,8 +1,17 @@
 import {
-  afterEach, beforeEach, describe, it,
+  describe, it, beforeAll, afterAll,
 } from '@jest/globals';
 import request from 'supertest';
+import mongoose from 'mongoose';
 import app from '../../src/main.js';
+
+beforeAll(async () => {
+  mongoose.connect('mongodb://admin:secret@127.0.0.1:27017/ecomm-order-test?authSource=admin');
+});
+
+afterAll(async () => {
+  mongoose.connection.close();
+});
 
 const moldePedido = {
   idCliente: '63fcd11f007767f013ee5b3b', // id de cliente existente
@@ -28,16 +37,6 @@ const moldePedido = {
     },
   ],
 };
-
-let server;
-beforeEach(() => {
-  const port = 3004;
-  server = app.listen(port);
-});
-
-afterEach(() => {
-  server.close();
-});
 
 let idResposta;
 describe('POST em /api/orders', () => {

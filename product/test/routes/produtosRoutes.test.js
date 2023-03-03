@@ -1,8 +1,19 @@
 import {
-  afterEach, beforeEach, describe, it, test,
+  afterAll,
+  beforeAll,
+  describe, it, test,
 } from '@jest/globals';
 import request from 'supertest';
+import mongoose from 'mongoose';
 import app from '../../src/main.js';
+
+beforeAll(async () => {
+  await mongoose.connect('mongodb://admin:secret@127.0.0.1:27017/ecomm-product-test?authSource=admin');
+});
+
+afterAll(async () => {
+  await mongoose.connection.close();
+});
 
 const moldeProduto = {
   produto: 'produto Jest',
@@ -20,8 +31,8 @@ const moldeProdutoModificado = {
   produto: 'modificado Jest',
   descricao: 'modificado jest',
   slug: 'produto-do-jest-modificado', // slug é indice único e retornará erro caso já exista um igual no banco
-  precoUnitario: 250.10,
-  quantidadeEmEstoque: 4,
+  precoUnitario: '250.10',
+  quantidadeEmEstoque: '4',
   categoria: {
     nome: 'categoriaJest',
     id: '63fe04092c63b668dde7316c', // valido de acordo com uma categoria e id existente no banco
@@ -35,18 +46,7 @@ const casosDeErro = (objeto) => ([
   ['com preco invalido', { ...objeto, precoUnitario: 'preco' }],
   ['com quantidade em estoque zerada', { ...objeto, quantidadeEmEstoque: 0 }],
   ['com quantidade em estoque maior que 10000', { ...objeto, quantidadeEmEstoque: 99999 }],
-  ['com id de categoria inexistente', { ...objeto, categoria: { ...objeto.categoria, id: 123 } }],
 ]);
-
-let server;
-beforeEach(() => {
-  const port = 40011;
-  server = app.listen(port);
-});
-
-afterEach(() => {
-  server.close();
-});
 
 describe('GET em /api/products', () => {
   it('Deve retornar uma lista de produtos', async () => {

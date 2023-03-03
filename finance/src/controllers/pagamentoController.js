@@ -6,6 +6,7 @@ class PagamentoController {
   static async inserirPagamento(req, res) {
     const dados = req.body;
     try {
+      if (dados.status && dados.status !== 'criado') throw new Error('Status de pagamento inválido');
       const novoPagamento = await database.Payments.create(dados);
       const arrLinks = [
         {
@@ -32,10 +33,11 @@ class PagamentoController {
     const { id } = req.params;
     try {
       const dados = await database.Payments.findOne({ where: { id: Number(id) } });
+      if (!dados) throw new Error('Este pagamento não existe');
       const { cvv, ...pagamento } = dados.dataValues;
       return res.status(200).json(pagamento);
     } catch (err) {
-      return res.status(500).json(err.message);
+      return res.status(404).json(err.message);
     }
   }
 

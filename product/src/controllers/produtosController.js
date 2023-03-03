@@ -1,7 +1,6 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-shadow */
 import Produtos from '../models/Produto.js';
-import Categorias from '../models/Categoria.js';
 
 class ProdutosController {
   static listarProdutos = (req, res) => {
@@ -14,21 +13,14 @@ class ProdutosController {
   static inserirProduto = (req, res) => {
     const produto = new Produtos(req.body);
 
-    Categorias.findById(produto.categoria.id, (err, elm) => {
-      try {
-        if (err) throw new Error(err);
-        if (produto.categoria.nome === elm.nome) {
-          produto.save((err) => {
-            if (err) return res.status(400).send({ message: ` ${err.message} - Houve um erro ao inserir o produto` });
-            return res.status(201).send(produto.toJSON());
-          });
-        } else {
-          return res.status(400).send({ message: 'Dados inválidos, verifique a procedência das informações' });
-        }
-      } catch (err) {
-        return res.status(400).send({ message: `${err} - o id da categoria não existe` });
-      }
-    });
+    try {
+      produto.save((err) => {
+        if (err) return res.status(400).send({ message: ` ${err.message} - Houve um erro ao inserir o produto` });
+        return res.status(201).send(produto.toJSON());
+      });
+    } catch (err) {
+      return res.status(400).send({ message: ` ${err.message} ` });
+    }
   };
 
   static listarProdutoPorId = (req, res) => {
@@ -48,32 +40,29 @@ class ProdutosController {
 
     Produtos.findById(id, (err) => {
       if (err) return res.status(404).send({ message: `${err.message} - o id inserido não existe` });
-      Categorias.findById(produto.categoria.id, (err, elm) => {
-        try {
-          if (err) throw new Error(err);
-          if (
-            regexNome.test(produto.produto) // model.produto = nome do produto
+      try {
+        if (err) throw new Error(err);
+        if (
+          regexNome.test(produto.produto) // model.produto = nome do produto
             && regexSlug.test(produto.slug)
             && produto.precoUnitario > 0
             && produto.quantidadeEmEstoque > 0
             && produto.quantidadeEmEstoque < 10000
-            && produto.categoria.nome === elm.nome
-          ) {
-            Produtos.findByIdAndUpdate(id, { $set: req.body }, (err) => {
-              if (err) {
-                res.status(400).send({ message: `${err.message} - O formato especificado é inválido` });
-                res.status(404).send({ message: `${err} - Produto não encontrado` });
-              } else {
-                return res.status(200).send({ message: 'Produto atualizado com sucesso' });
-              }
-            });
-          } else {
-            return res.status(400).send({ message: 'Dados inválidos, verifique a procedência das informações' });
-          }
-        } catch (err) {
-          return res.status(400).send({ message: `${err} - o id da categoria não existe` });
+        ) {
+          Produtos.findByIdAndUpdate(id, { $set: req.body }, (err) => {
+            if (err) {
+              res.status(400).send({ message: `${err.message} - O formato especificado é inválido` });
+              res.status(404).send({ message: `${err} - Produto não encontrado` });
+            } else {
+              return res.status(200).send({ message: 'Produto atualizado com sucesso' });
+            }
+          });
+        } else {
+          return res.status(400).send({ message: 'Dados inválidos, verifique a procedência das informações' });
         }
-      });
+      } catch (err) {
+        return res.status(400).send({ message: `${err} - o id da categoria não existe` });
+      }
     });
   };
 

@@ -1,8 +1,7 @@
-import { arrUsers } from "./createUserAccount.js";
+import { arrUsers } from './createUserAccount.js';
 
-export function searchUserAccountByEmailUseCase(email){
-    const userIndex = arrUsers.findIndex(elm => elm.email == email);
+export default function searchUserAccountByEmailUseCase(email) {
+  const userIndex = arrUsers.findIndex((elm) => elm.email === email);
 
-    return userIndex != -1 ? arrUsers[userIndex] : 'Este usuário não existe';
+  return userIndex !== -1 ? arrUsers[userIndex] : 'Este usuário não existe';
 }
-

@@ -35,7 +35,6 @@ class CategoriaController {
       Categorias.findByIdAndUpdate(id, { $set: req.body }, (err) => {
         if (err) {
           res.status(404).send({ message: `${err} - Categoria não encontrada` });
-          res.status(400).send({ message: 'O formato especificado é inválido' });
         } else {
           return res.status(200).send({ message: 'Categoria atualizada com sucesso' });
         }

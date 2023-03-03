@@ -1,17 +1,16 @@
 import {
-  afterEach, beforeEach, describe, expect, it, jest, test,
+  describe, expect, it, jest, test, beforeAll, afterAll,
 } from '@jest/globals';
 import request from 'supertest';
+import mongoose from 'mongoose';
 import app from '../../src/main.js';
 
-let server;
-beforeEach(() => {
-  const port = 4001;
-  server = app.listen(port);
+beforeAll(async () => {
+  await mongoose.connect('mongodb://admin:secret@127.0.0.1:27017/ecomm-product-test?authSource=admin');
 });
 
-afterEach(() => {
-  server.close();
+afterAll(async () => {
+  await mongoose.connection.close();
 });
 
 describe('GET em /api/categories', () => {
@@ -32,6 +31,7 @@ describe('POST em /api/admin/categories', () => {
         nome: 'categoriaJest',
         status: 'ativa',
       })
+      .set('Accept', 'application/json')
       .expect('content-type', /json/)
       .expect(201);
 

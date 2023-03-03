@@ -18,7 +18,9 @@ module.exports = (sequelize, DataTypes) => {
     valor: {
       type: DataTypes.DECIMAL(10, 2),
       validate: {
-        min: 1,
+        valorMinimo(valor) {
+          if (valor <= 0) throw new Error('O valor inserido tem que ser maior que 0');
+        },
       },
     },
     nome: DataTypes.STRING,
