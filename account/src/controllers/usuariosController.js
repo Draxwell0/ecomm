@@ -1,11 +1,22 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-useless-escape */
 /* eslint-disable consistent-return */
 /* eslint-disable no-shadow */
-import { createHash } from 'crypto';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 import Usuarios from '../models/Usuario.js';
 
 function criaHash(senha) {
-  return createHash('sha256').update(senha).digest('hex');
+  return bcrypt.hash(senha, 12);
+}
+
+function criaTokenJWT(usuario) {
+  const payload = {
+    id: usuario._id,
+  };
+
+  const token = jwt.sign(payload, process.env.CHAVE_JWT, { expiresIn: '30m' });
+  return token;
 }
 
 class UsuariosController {
@@ -16,7 +27,7 @@ class UsuariosController {
     });
   };
 
-  static inserirUsuario = (req, res) => {
+  static inserirUsuario = async (req, res) => {
     const usuario = new Usuarios(req.body);
     const regexSenha = /^(?=.*[A-z])(?=.*\d)(?=.*['"!@#$%¨&*()\-_=+´`~^;:\/.,<>{|}\\])[A-z\d'"!@#$%¨&*()\-_=+´`~^;:\/.,<>{|}\\]{8,255}$/;
     const uf = {
@@ -24,7 +35,7 @@ class UsuariosController {
     };
 
     if (uf[usuario.endereco.estado.toUpperCase()] && regexSenha.test(usuario.senha)) {
-      usuario.senha = criaHash(usuario.senha);
+      usuario.senha = await criaHash(usuario.senha);
 
       usuario.save((err) => {
         if (err) {
@@ -35,6 +46,12 @@ class UsuariosController {
     } else {
       return res.status(400).send({ message: 'Dados inválidos, verifique a procedência das informações' });
     }
+  };
+
+  static loginUsuario = (req, res) => {
+    const token = criaTokenJWT(req.usuario);
+    res.set('Authorization', token);
+    res.status(204).send();
   };
 
   static ListarUsuarioPorId = (req, res) => {
