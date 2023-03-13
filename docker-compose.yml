@@ -7,6 +7,7 @@ services:
       - 3001:3001
     depends_on:
       - mongodb
+      - redis
   account:
     build: ./account
     container_name: ecomm-account
@@ -14,6 +15,7 @@ services:
       - 3002:3002
     depends_on:
       - mongodb
+      - redis
   finance:
     build: ./finance
     container_name: ecomm-finance
@@ -21,6 +23,7 @@ services:
       - 3003:3003
     depends_on:
       - mysql
+      - redis
   order:
     build: ./order
     container_name: ecomm-order
@@ -28,6 +31,7 @@ services:
       - 3004:3004
     depends_on:
       - mongodb
+      - redis
 
   mongodb:
     image: mongo
@@ -49,7 +53,15 @@ services:
       - MYSQL_ROOT_PASSWORD=secret
     volumes:
      - ecomm-mysql:/var/lib/mysql
+  redis:
+    image: redis
+    container_name: redis-ecomm
+    ports:
+      - 6379:6379
+    volumes:
+      - ecomm-redis:/data
 
 volumes: 
   ecomm-mysql:
   ecomm-mongo:
+  ecomm-redis:
