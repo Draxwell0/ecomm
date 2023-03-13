@@ -1,10 +1,7 @@
-import { arrUsers } from "./createUserAccount.js";
+import { arrUsers } from './createUserAccount.js';
 
-export function filterUsersByStateUseCase(state){
-    
-    const filteredArr = arrUsers.filter(elm => {
-        return elm.address?.state == state
-    });
+export default function filterUsersByStateUseCase(state) {
+  const filteredArr = arrUsers.filter((elm) => elm.address?.state === state);
 
-    return filteredArr;
+  return filteredArr;
 }

@@ -1,11 +1,11 @@
-import express from 'express'
-import pedidos from './pedidosRoutes.js'
+import express from 'express';
+import pedidos from './pedidosRoutes.js';
 
-const routes = (app) =>{
-    app.use(
-        express.json(),
-        pedidos
-    )
-}
+const routes = (app) => {
+  app.use(
+    express.json(),
+    pedidos,
+  );
+};
 
-export default routes
+export default routes;

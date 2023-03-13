@@ -1,10 +1,10 @@
-import express from 'express'
-import PedidoController from '../controllers/pedidoController.js'
+import express from 'express';
+import PedidoController from '../controllers/pedidoController.js';
 
-const router = express.Router()
+const router = express.Router();
 
 router
-    .post('/api/orders', PedidoController.inserirPedido)
-    .patch('/api/orders/:idPedido', PedidoController.confirmarPedido)
+  .post('/api/orders', PedidoController.inserirPedido)
+  .patch('/api/orders/:idPedido', PedidoController.confirmarPedido);
 
-export default router
+export default router;

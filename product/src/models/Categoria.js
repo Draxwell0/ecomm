@@ -1,11 +1,11 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
 const categoriaSchema = new mongoose.Schema({
-    id: {type: String},
-    nome: {type: String, required: true, match: /^[A-z][A-z0-9]{3,}$/},
-    status: {type: String, required: true}
-}, {versionKey: false})
+  id: { type: String },
+  nome: { type: String, required: true, match: /^[A-z][A-z0-9]{3,}$/ },
+  status: { type: String, required: true, default: 'ativa' },
+}, { versionKey: false });
 
-const categorias = mongoose.model('categories', categoriaSchema)
+const categorias = mongoose.model('categories', categoriaSchema);
 
-export default categorias
+export default categorias;
