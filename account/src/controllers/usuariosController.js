@@ -4,6 +4,7 @@
 /* eslint-disable no-shadow */
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import blacklist from '../../redis/manipulaBlacklist.js';
 import Usuarios from '../models/Usuario.js';
 
 function criaHash(senha) {
@@ -52,6 +53,16 @@ class UsuariosController {
     const token = criaTokenJWT(req.usuario);
     res.set('Authorization', token);
     res.status(204).send();
+  };
+
+  static logoutUsuario = async (req, res) => {
+    try {
+      const { token } = req;
+      await blacklist.adiciona(token);
+      res.status(204).send();
+    } catch (err) {
+      res.status(500).json({ erro: err.message });
+    }
   };
 
   static ListarUsuarioPorId = (req, res) => {

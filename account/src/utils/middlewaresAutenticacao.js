@@ -11,9 +11,10 @@ export default {
   },
 
   bearer: (req, res, next) => {
-    passport.authenticate('bearer', { session: false }, (erro, usuario) => {
+    passport.authenticate('bearer', { session: false }, (erro, usuario, info) => {
       if (erro) return res.status(401).json({ erro: erro.message });
 
+      req.token = info.token;
       req.usuario = usuario;
       return next();
     })(req, res, next);
