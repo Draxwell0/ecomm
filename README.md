@@ -35,3 +35,23 @@ XI. Logs - Implementado
 
 XII. Processos admnistrativos - Implementado
   A aplicação roda tarefas de admnistração/gestão como processos de manutenção pontuais;
+
+# Patterns de microservices
+
+Serviços de domínio - Aplicado
+
+Serviços de negócio - Aplicado
+
+API Gateway - Não aplicado
+
+Agregador de processos - Aplicado
+
+Edge service - Não aplicado
+
+Single database vs Bancos diferentes - Aplicado com bancos diferentes, sendo um para cada serviço independente
+
+Eventos assíncronos - Não aplicado
+
+Agregação de logs - Não aplicado
+
+Agregação de métricas - Não aplicado
