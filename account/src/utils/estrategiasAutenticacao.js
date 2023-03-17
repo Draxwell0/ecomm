@@ -46,7 +46,7 @@ passport.use(
     async (token, done) => {
       try {
         await verificaTokenNaBlacklist(token);
-        const payload = jwt.verify(token, process.env.CHAVE_JWT);
+        const payload = jwt.verify(token, `${process.env.CHAVE_JWT}`);
         const usuario = await Usuario.findOne({ _id: payload.id });
         done(null, usuario, { token });
       } catch (err) {

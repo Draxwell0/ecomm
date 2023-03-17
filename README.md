@@ -6,14 +6,14 @@ I. Base de Código - Implementado
 II. Dependências - Implementado
   Todas as dependências estão declaradas de forma precisa e explícita, isoladamente;
 
-III. Configurações - Não implementado
-  Configurações e conexões que podem variar entre deploys não estam sendo feitas de forma dinâmica na aplicação por meio de variáveis de ambiente;
+III. Configurações - Implementado
+  Configurações e conexões que podem variar entre deploys estam sendo feitas de forma dinâmica na aplicação por meio de variáveis de ambiente;
 
-IV. Serviços de apoio - Não implementado
-  Serviços de apoio não são anexados e necessitam de mudanças no código do app para modificação;
+IV. Serviços de apoio - Implementado
+  Serviços de apoio são anexados e não necessitam de mudanças no código do app para modificação;
 
-V. Construa, lance, execute - Não implementado
-  Por hora, a separação entre os estágios não é realizada em sua respectiva ordem;
+V. Construa, lance, execute - Implementado
+  A separação entre os estágios é realizada em sua respectiva ordem via Docker;
 
 VI. Processos - Implementado
   Toda a aplicação é executada como um ou mais processos que não armazenam estado;

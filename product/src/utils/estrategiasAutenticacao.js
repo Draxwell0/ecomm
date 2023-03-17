@@ -6,7 +6,7 @@ passport.use(
   new BearerStrategy(
     async (token, done) => {
       try {
-        const payload = jwt.verify(token, process.env.CHAVE_JWT);
+        const payload = jwt.verify(token, `${process.env.CHAVE_JWT}`);
         done(null, payload.id, { token });
       } catch (err) {
         done(err);

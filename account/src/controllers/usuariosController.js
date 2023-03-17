@@ -16,7 +16,7 @@ function criaTokenJWT(usuario) {
     id: usuario._id,
   };
 
-  const token = jwt.sign(payload, process.env.CHAVE_JWT, { expiresIn: '30m' });
+  const token = jwt.sign(payload, `${process.env.CHAVE_JWT}`, { expiresIn: '30m' });
   return token;
 }
 
