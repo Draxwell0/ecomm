@@ -1,5 +1,8 @@
 /* eslint-disable consistent-return */
+import dotenv from 'dotenv';
 import Pedidos from '../models/Pedido.js';
+
+dotenv.config();
 
 class PedidoController {
   static inserirPedido = (req, res) => {
@@ -29,21 +32,21 @@ class PedidoController {
       Pedidos.findById(idPedido, async (err, pedido) => {
         if (!err) {
           // obter o nome, CPF e endereço completo do cliente
-          const cliente = await fetch(`http://account:3002/api/users/${pedido.idCliente}`);
+          const cliente = await fetch(`http://gateway:${process.env.GATEWAY_PORT}/api/users/${pedido.idCliente}`);
           const { nome, cpf, endereco } = await cliente.json();
 
           // obter o nome dos produtos, se necessário
           // eslint-disable-next-line no-unused-vars
           const nomesProdutos = await Promise.all(
             pedido.itens.map(async (elm) => {
-              let produto = await fetch(`http://product:3001/api/products/${elm.id}`);
+              let produto = await fetch(`http://gateway:${process.env.GATEWAY_PORT}/api/products/${elm.id}`);
               produto = await produto.json();
               return produto.produto; // model.produto = nome do produto
             }),
           );
 
           // confirmar o pagamento passando todas as informações para a geração da nota fiscal
-          await fetch(`http://finance:3003/api/payments/${idPagamento}?status=confirm`, {
+          await fetch(`http://gateway:${process.env.GATEWAY_PORT}/api/payments/${idPagamento}?status=confirm`, {
             method: 'PATCH',
             body: JSON.stringify({
               nome, cpf, endereco, itens: pedido.itens,

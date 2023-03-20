@@ -32,6 +32,16 @@ services:
     depends_on:
       - mongodb
       - redis
+  gateway:
+    build: ./gateway
+    container_name: ecomm-gateway
+    ports:
+      - ${GATEWAY_PORT}:${GATEWAY_PORT}
+    depends_on:
+      - product
+      - account
+      - finance
+      - order
 
   mongodb:
     image: mongo

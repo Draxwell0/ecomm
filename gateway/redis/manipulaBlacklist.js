@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import { createHash } from 'crypto';
 import blacklist from './blacklist.js';
 
+const existsAsync = promisify(blacklist.exists).bind(blacklist);
 const setAsync = promisify(blacklist.set).bind(blacklist);
 
 function geraTokenHash(token) {
@@ -15,5 +16,11 @@ export default {
     const tokenHash = geraTokenHash(token);
     await setAsync(tokenHash, '');
     blacklist.expireat(tokenHash, dataExpiracao);
+  },
+
+  contemTokem: async (token) => {
+    const tokenHash = geraTokenHash(token);
+    const resultado = await existsAsync(tokenHash);
+    return resultado === 1;
   },
 };

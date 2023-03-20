@@ -12,12 +12,12 @@ class PagamentoController {
         {
           rel: 'confirm-payment',
           method: 'PATCH',
-          href: `http://localhost:3003/api/payments/${novoPagamento.dataValues.id}?status=confirm`,
+          href: `http://localhost:3003/api/payments/${novoPagamento.dataValues.id}?status=confirmado`,
         },
         {
           rel: 'cancel-payment',
           method: 'PATCH',
-          href: `http://localhost:3003/api/payments/${novoPagamento.dataValues.id}?status=cancel`,
+          href: `http://localhost:3003/api/payments/${novoPagamento.dataValues.id}?status=cancelado`,
         },
       ];
 
@@ -43,13 +43,8 @@ class PagamentoController {
 
   static async respostaPagamento(req, res) {
     const { id } = req.params;
-    let { status } = req.query;
+    const { status } = req.query;
     const descricao = req.body;
-
-    // eslint-disable-next-line no-unused-expressions, no-self-assign
-    status === 'confirm' ? status = 'confirmado' : status = status;
-    // eslint-disable-next-line no-unused-expressions, no-self-assign
-    status === 'cancel' ? status = 'cancelado' : status = status;
 
     try {
       // verificação se pagamento existe

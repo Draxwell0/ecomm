@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import express from 'express';
 import routes from './routes/index.js';
-import './utils/estrategiasAutenticacao.js';
 
 const app = express();
 app.use(express.json());
