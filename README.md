@@ -42,7 +42,7 @@ Serviços de domínio - Aplicado
 
 Serviços de negócio - Aplicado
 
-API Gateway - Não aplicado
+API Gateway - Aplicado
 
 Agregador de processos - Aplicado
 
