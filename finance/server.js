@@ -1,4 +1,7 @@
+const dotenv = require('dotenv');
 const app = require('./src/main.js');
+
+dotenv.config();
 
 const PORT = process.env.PORT || 3003;
 // eslint-disable-next-line no-console
