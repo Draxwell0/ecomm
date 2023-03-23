@@ -56,20 +56,20 @@ const casosDeErro = (objeto) => ([
   ['com cep inválido', { ...objeto, endereco: { ...objeto.endereco, cep: '12345' } }],
 ]);
 
-describe('GET em /api/users', () => {
+describe('GET em /api/admin/users', () => {
   it('Deve retornar uma lista de usuários', async () => {
     await request(app)
-      .get('/api/users')
+      .get('/api/admin/users')
       .expect('content-type', /json/)
       .expect(200);
   });
 });
 
 let idResposta;
-describe('POST em /api/admin/users', () => {
+describe('POST em /api/users', () => {
   it('Deve adicionar um novo usuário', async () => {
     const resposta = await request(app)
-      .post('/api/admin/users')
+      .post('/api/users')
       .send(moldeUsuario)
       .set('Accept', 'application/json')
       .expect('content-type', /json/)
@@ -81,7 +81,7 @@ describe('POST em /api/admin/users', () => {
 
   test.each(casosDeErro(moldeUsuario))('Não deve adicionar quando vier %s', async (chave, param) => {
     await request(app)
-      .post('/api/admin/users')
+      .post('/api/users')
       .send(param)
       .set('Accept', 'application/json')
       .expect('content-type', /json/)
@@ -117,7 +117,7 @@ describe('PUT em /api/admin/users/id', () => {
 
   test.each(casosDeErro(moldeUsuarioModificado))('Não deve adicionar quando vier %s', async (chave, param) => {
     await request(app)
-      .post('/api/admin/users')
+      .put(`/api/admin/users/${idResposta}`)
       .send(param)
       .set('Accept', 'application/json')
       .expect('content-type', /json/)

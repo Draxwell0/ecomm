@@ -11,12 +11,12 @@ class ProdutosController {
   };
 
   static inserirProduto = (req, res) => {
-    const Produto = new Produtos(req.body);
+    const produto = new Produtos(req.body);
 
     try {
-      Produto.save((err) => {
+      produto.save((err) => {
         if (err) return res.status(400).send({ message: ` ${err.message} - Houve um erro ao inserir o produto` });
-        return res.status(201).send(Produto.toJSON());
+        return res.status(201).send(produto.toJSON());
       });
     } catch (err) {
       return res.status(400).send({ message: ` ${err.message} ` });
@@ -34,13 +34,13 @@ class ProdutosController {
 
   static alterarProduto = (req, res) => {
     const { id } = req.params;
-    const Produto = new Produtos(req.body);
+    const produto = new Produtos(req.body);
 
     Produtos.findById(id, (err) => {
       if (err) return res.status(404).send({ message: `${err.message} - o id inserido não existe` });
       try {
         if (err) throw new Error(err);
-        if (produtosService.validaAlteracao(Produto)) {
+        if (produtosService.validaAlteracao(produto)) {
           Produtos.findByIdAndUpdate(id, { $set: req.body }, (erro) => {
             if (erro) {
               res.status(400).send({ message: `${err.message} - O formato especificado é inválido ou o produto não existe` });

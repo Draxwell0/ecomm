@@ -10,13 +10,17 @@ const uf = {
 
 export default {
   validaInsercao: (usuario) => {
-    if (uf[usuario.endereco.estado.toUpperCase()] && regexSenha.test(usuario.senha)) return true;
+    if (
+      usuario.nome.trim()
+      && uf[usuario.endereco.estado.toUpperCase()]
+      && regexSenha.test(usuario.senha)
+    ) return true;
     return false;
   },
 
   validaAlteracao: (usuario) => {
     if (
-      usuario.nome
+      usuario.nome.trim()
       && usuario.endereco.rua
       && usuario.endereco.numero
       && usuario.endereco.cidade

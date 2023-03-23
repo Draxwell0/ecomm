@@ -47,13 +47,10 @@ class PagamentoController {
     const descricao = req.body;
 
     try {
-      // verificação se pagamento existe
       const pagamento = await database.Payments.findOne({ where: { id: Number(id) } });
       if (!pagamento) return res.status(404).json('O id informado não existe');
 
-      // verificação se está como criado
       if (pagamento.status.toLowerCase() === 'criado') {
-        // verificação se foi confirmado ou cancelado
         if (status.toLowerCase() === 'confirmado') {
           database.sequelize.transaction(async (t) => {
             await database.Payments.update({ status }, { where: { id: Number(id) } }, { transaction: t });
