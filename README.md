@@ -55,3 +55,23 @@
 - Agregação de logs - Não aplicado
 
 - Agregação de métricas - Não aplicado
+
+## Outros aspectos de microservices
+
+- Padronização de stacks 
+  Os serviços visam seguir um padrão de tecnologias utilizadas, fazendo uso essencialmente de node.js, javascript e mongodb, ainda passível de pequenas alterações nas mesmas stacks que não sejam tão impactantes; 
+
+- Service discovery
+  Conceitos que regem service discovery demonstram a necessidade de fazer uma comunicação dinâmica entre diferentes ip's dentro de uma rede, sendo possível um escalamento automático com soluções como load balancers, ainda não aplicadas;
+
+- Aspectos de segurança
+  Diversos conceitos que dizem respeito a segurança são utilizados, mantendo segurança no transporte e em repouso com ferramentas de autenticação/autorização e a devida criptografia de dados sensíveis, tendo como necessário aprimoramento em partes de segurança na rede;
+
+- Deploy e build
+  Como ferramenta para CI/CD é viável o uso do GitHub Actions, garantindo integridade nos devidos processos em um ambiente único;
+
+- Falhas com assincronicidade 
+  Técnicas como cache ou o pattern 'circuit breaker' servem para garantir uma resiliência/integridade à aplicação com tolerância de falhas possivelmente desastrosas. Tratativa de erros com eventos assíncronos ainda não foram implementadas;
+
+- Comunicação assíncrona
+  Serviços de comunicação assíncrona podem ser utilizados preferencialmente no serviço de pedidos com todo o seu processamento e o evento de criação/envio da nota fiscal;
