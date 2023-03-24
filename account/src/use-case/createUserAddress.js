@@ -1,5 +1,3 @@
-/* eslint-disable guard-for-in */
-/* eslint-disable no-restricted-syntax */
 import { arrUsers } from './createUserAccount.js';
 
 export default function createUserAddressUseCase(address, email) {
@@ -8,9 +6,9 @@ export default function createUserAddressUseCase(address, email) {
 
   arrUsers[userIndex].address = {};
 
-  for (const key in address) {
+  Object.keys(address).forEach((key) => {
     arrUsers[userIndex].address[key] = address[key];
-  }
+  });
 
   return arrUsers[userIndex];
 }

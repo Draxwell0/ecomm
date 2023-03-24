@@ -7,6 +7,7 @@
   "scripts": {
     "start": "node server.js",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose",
+    "lint": "eslint src",
     "dev": "nodemon server.js"
   },
   "keywords": [],
@@ -15,10 +16,7 @@
   "dependencies": {
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "jsonwebtoken": "^9.0.0",
-    "mongoose": "^6.9.1",
-    "passport": "^0.6.0",
-    "passport-http-bearer": "^1.0.1"
+    "mongoose": "^6.9.1"
   },
   "devDependencies": {
     "@jest/globals": "^29.4.3",

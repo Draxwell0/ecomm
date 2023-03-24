@@ -10,5 +10,5 @@ db.once('open', () => {
   console.log('Conexão com o banco de dados feita com sucesso');
 });
 
-const PORT = process.env.PORT || 3002;
+const { PORT } = process.env;
 app.listen(PORT, () => { console.log(`Servidor escutando na porta ${PORT}`); });

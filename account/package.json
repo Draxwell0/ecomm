@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node server.js",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose",
+    "lint": "eslint src",
     "dev": "nodemon server.js"
   },
   "keywords": [],
@@ -22,7 +23,6 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.9.0",
     "passport": "^0.6.0",
-    "passport-http-bearer": "^1.0.1",
     "passport-local": "^1.0.0",
     "redis": "3.1.2",
     "swagger-ui-express": "^4.6.0"

@@ -4,7 +4,7 @@ services:
     build: ./product
     container_name: ecomm-product
     ports:
-      - 3001:3001
+      - ${PRODUCT_PORT}:${PRODUCT_PORT}
     depends_on:
       - mongodb
       - redis
@@ -12,7 +12,7 @@ services:
     build: ./account
     container_name: ecomm-account
     ports:
-      - 3002:3002
+      - ${ACCOUNT_PORT}:${ACCOUNT_PORT}
     depends_on:
       - mongodb
       - redis
@@ -20,7 +20,7 @@ services:
     build: ./finance
     container_name: ecomm-finance
     ports:
-      - 3003:3003
+      - ${FINANCE_PORT}:${FINANCE_PORT}
     depends_on:
       - mysql
       - redis
@@ -28,36 +28,44 @@ services:
     build: ./order
     container_name: ecomm-order
     ports: 
-      - 3004:3004
+      - ${ORDER_PORT}:${ORDER_PORT}
     depends_on:
       - mongodb
       - redis
+  gateway:
+    build: ./gateway
+    container_name: ecomm-gateway
+    ports:
+      - ${GATEWAY_PORT}:${GATEWAY_PORT}
+    depends_on:
+      - product
+      - account
+      - finance
+      - order
 
   mongodb:
     image: mongo
     container_name: mongo-ecomm
     ports:
-      - 27017:27017
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=secret
+      - ${MONGODB_PORT}:${MONGODB_PORT}
+    env_file:
+      - ./product/.env
     volumes:
       - ecomm-mongo:/data/db
   mysql:
     image: mysql
     container_name: mysql-ecomm
     ports:
-      - 3306:3306
-    environment: 
-      - MYSQL_ROOT_USERNAME=root
-      - MYSQL_ROOT_PASSWORD=secret
+      - ${MYSQL_PORT}:${MYSQL_PORT}
+    env_file:
+      - ./.env
     volumes:
      - ecomm-mysql:/var/lib/mysql
   redis:
     image: redis
     container_name: redis-ecomm
     ports:
-      - 6379:6379
+      - ${REDIS_PORT}:${REDIS_PORT}
     volumes:
       - ecomm-redis:/data
 
