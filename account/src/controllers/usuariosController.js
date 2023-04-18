@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 /* eslint-disable no-underscore-dangle */
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -28,20 +27,19 @@ class UsuariosController {
   };
 
   static inserirUsuario = async (req, res) => {
-    const Usuario = new Usuarios(req.body);
+    const usuario = new Usuarios(req.body);
 
-    if (usuariosService.validaInsercao(Usuario)) {
-      Usuario.senha = await criaHash(Usuario.senha);
+    if (usuariosService.validaInsercao(usuario)) {
+      usuario.senha = await criaHash(usuario.senha);
 
-      Usuario.save((err) => {
+      usuario.save((err) => {
         if (err) {
           return res.status(400).send({ message: 'Dados inválidos, verifique a procedência das informações' });
         }
-        return res.status(201).send(Usuario.toJSON());
+        return res.status(201).send(usuario.toJSON());
       });
-    } else {
-      return res.status(400).send({ message: 'Dados inválidos, verifique a procedência das informações' });
     }
+    return res.status(400).send({ message: 'Dados inválidos, verifique a procedência das informações' });
   };
 
   static loginUsuario = (req, res) => {
@@ -71,18 +69,17 @@ class UsuariosController {
 
   static alterarUsuario = (req, res) => {
     const { id } = req.params;
-    const Usuario = new Usuarios(req.body);
+    const usuario = new Usuarios(req.body);
 
     Usuarios.findById(id, (err) => {
       if (err) return res.status(404).send({ message: `${err} - o id inserido não existe` });
-      if (usuariosService.validaAlteracao(Usuario)) {
+      if (usuariosService.validaAlteracao(usuario)) {
         Usuarios.findByIdAndUpdate(id, { $set: req.body }, (erro) => {
           if (erro) return res.status(400).send('Usuário não existe ou dados não coincidem');
           return res.status(200).send({ message: 'Usuário atualizado com sucesso' });
         });
-      } else {
-        return res.status(400).send({ message: 'Dados inválidos, verifique a procedência das informações' });
       }
+      return res.status(400).send({ message: 'Dados inválidos, verifique a procedência das informações' });
     });
   };
 

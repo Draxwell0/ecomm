@@ -1,5 +1,5 @@
-from node
-workdir /ecomm-gateway
-copy . .
-run npm install
-entrypoint npm start
+FROM node
+WORKDIR /ecomm-gateway
+COPY . .
+RUN npm install
+ENTRYPOINT npm start

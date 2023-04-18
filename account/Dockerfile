@@ -1,5 +1,5 @@
-from node
-workdir /ecomm-account
-copy . .
-run npm install 
-entrypoint npm start
+FROM node
+WORKDIR /ecomm-account
+COPY . .
+RUN npm install 
+ENTRYPOINT npm start

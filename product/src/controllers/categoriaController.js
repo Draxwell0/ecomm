@@ -10,11 +10,11 @@ class CategoriaController {
   };
 
   static inserirCategoria = (req, res) => {
-    const Categoria = new Categorias(req.body);
+    const categoria = new Categorias(req.body);
 
-    Categoria.save((err) => {
+    categoria.save((err) => {
       if (err) return res.status(400).send({ message: `${err.message} - falha ao inserir categoria` });
-      return res.status(201).send(Categoria.toJSON());
+      return res.status(201).send(categoria.toJSON());
     });
   };
 

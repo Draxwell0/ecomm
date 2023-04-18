@@ -47,7 +47,7 @@ describe('PATCH EM /api/payments/id', () => {
   it('Deve confirmar ou cancelar um pagamento', async () => {
     await request(app)
       .patch(`/api/payments/${idResposta}`)
-      .query({ status: 'cancel' }) // teste sendo feito cancelando o pagamento
+      .query({ status: 'cancelado' })
       .expect('content-type', /json/)
       .expect(200);
   });
